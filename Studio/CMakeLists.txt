@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.16)
-project(Studio VERSION 0.1.0 LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.22)
+project(Studio VERSION 0.0.1 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Optionally control build types
@@ -71,3 +71,25 @@ else()
 	COMMENT "Copying WpfBridge.dll next to Studio executable"
   )
 endif()
+
+
+# Small native test that creates a window and calls ShowWpfAboutDialog
+add_executable(about_test WIN32
+  src/test_about.cpp
+)
+
+add_dependencies(about_test wpfcontrols_build wpfbridge_build)
+
+add_custom_command(TARGET about_test POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	${CMAKE_SOURCE_DIR}/WpfControls/bin/$<CONFIG>/net7.0/WpfControls.dll
+	$<TARGET_FILE_DIR:about_test>/WpfControls.dll
+  COMMENT "Copying WpfControls.dll next to about_test executable"
+)
+
+add_custom_command(TARGET about_test POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	${CMAKE_BINARY_DIR}/WpfBridge/bin/$<CONFIG>/WpfBridge.dll
+	$<TARGET_FILE_DIR:about_test>/WpfBridge.dll
+  COMMENT "Copying WpfBridge.dll next to about_test executable"
+)
