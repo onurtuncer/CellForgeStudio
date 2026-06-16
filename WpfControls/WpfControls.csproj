@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+	<TargetFramework>net7.0</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<AssemblyName>WpfControls</AssemblyName>
+	<Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>

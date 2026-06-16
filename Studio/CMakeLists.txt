@@ -9,9 +9,16 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type" FORCE)
 endif()
 
-add_executable(Studio
+
+# Build as a Windows GUI application when possible (suitable for MFC)
+add_executable(Studio WIN32
 	src/main.cpp
 )
+
+if(MSVC)
+  # Use MFC dynamically in Visual Studio
+  set_target_properties(Studio PROPERTIES VS_MFC "Dynamic")
+endif()
 
 target_include_directories(Studio PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
