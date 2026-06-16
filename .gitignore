@@ -67,3 +67,26 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Studio project CMake build artifacts
+Studio/build/
+Studio/CMakeFiles/
+Studio/CMakeCache.txt
+Studio/compile_commands.json
+Studio/*.cmake
+
+# Visual Studio and IDE files
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.suo
+*.VC.db
+*.VC.opendb
+.vscode/
+
+# .NET / C# artifacts
+**/bin/
+**/obj/
+
+# Rider/JetBrains
+.idea/
