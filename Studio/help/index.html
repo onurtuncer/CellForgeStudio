@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CellForge Studio Help</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Segoe UI, sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  nav {
+    width: 220px;
+    min-width: 220px;
+    background: #f3f4f6;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    padding: 16px 0;
+  }
+
+  nav h2 {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #666;
+    padding: 0 16px 8px;
+  }
+
+  nav a {
+    display: block;
+    padding: 6px 16px;
+    color: #333;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+
+  nav a:hover { background: #e8eaed; }
+  nav a.active { border-left-color: #0078d4; color: #0078d4; font-weight: 500; }
+
+  main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 40px;
+    max-width: 760px;
+  }
+
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  h2 { font-size: 16px; font-weight: 600; margin: 28px 0 8px; }
+  p  { line-height: 1.6; color: #333; margin-bottom: 12px; }
+
+  ul { padding-left: 20px; margin-bottom: 12px; }
+  li { line-height: 1.8; }
+
+  .tip {
+    background: #e8f4fd;
+    border-left: 3px solid #0078d4;
+    padding: 10px 14px;
+    margin: 16px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    background: #f3f4f6;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: Consolas, monospace;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>Contents</h2>
+  <a href="#overview"    class="active">Overview</a>
+  <a href="#gettingstarted">Getting Started</a>
+  <a href="#shortcuts">Keyboard Shortcuts</a>
+  <a href="#troubleshooting">Troubleshooting</a>
+</nav>
+
+<main>
+  <h1 id="overview">CellForge Studio Help</h1>
+  <p>Welcome to CellForge Studio. This help guide covers the core workflows and features of the application.</p>
+
+  <div class="tip">This help window can be opened at any time from <strong>Help &gt; Help Topics</strong> or by pressing <kbd>F1</kbd>.</div>
+
+  <h2 id="gettingstarted">Getting Started</h2>
+  <p>Replace this section with your application's getting-started content.</p>
+  <ul>
+    <li>Step one: ...</li>
+    <li>Step two: ...</li>
+    <li>Step three: ...</li>
+  </ul>
+
+  <h2 id="shortcuts">Keyboard Shortcuts</h2>
+  <ul>
+    <li><kbd>F1</kbd> — Open Help</li>
+    <li><kbd>Alt</kbd>+<kbd>F4</kbd> — Exit</li>
+  </ul>
+
+  <h2 id="troubleshooting">Troubleshooting</h2>
+  <p>Replace this section with common issues and solutions for your application.</p>
+</main>
+
+<script>
+  // Highlight active nav link on scroll
+  const links = document.querySelectorAll('nav a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href')));
+
+  document.querySelector('main').addEventListener('scroll', () => {
+    const scrollY = document.querySelector('main').scrollTop;
+    let current = 0;
+    sections.forEach((s, i) => { if (s && s.offsetTop <= scrollY + 60) current = i; });
+    links.forEach(l => l.classList.remove('active'));
+    links[current].classList.add('active');
+  });
+
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>

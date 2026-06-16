@@ -1,0 +1,9 @@
+<Window x:Class="HelpViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:WpfControls;assembly=WpfControls"
+        Title="CellForge Studio — Help"
+        Width="860" Height="660"
+        WindowStartupLocation="CenterScreen">
+    <controls:HelpControl x:Name="helpControl"/>
+</Window>

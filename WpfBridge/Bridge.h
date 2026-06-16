@@ -9,7 +9,7 @@
 #endif
 
 // Generic dialog dispatch. dialogId is matched case-insensitively against the registry.
-// Currently registered IDs: "About"
+// Currently registered IDs: "About", "Help"
 // Add entries to GetDialogRegistry() in Bridge.cpp to register additional dialogs.
 extern "C" WPFBRIDGE_API void ShowDialog(const wchar_t* dialogId, HWND parentHwnd);
 

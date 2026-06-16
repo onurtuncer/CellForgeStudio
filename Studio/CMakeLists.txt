@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.22)
-project(Studio VERSION 0.0.1 LANGUAGES CXX)
+project(Studio LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -28,6 +28,15 @@ if(TARGET wpfcontrols_build)
   )
 endif()
 
+# Copy help content next to the executable
+add_custom_command(TARGET Studio POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/help
+    $<TARGET_FILE_DIR:Studio>/help
+  COMMENT "Copying help content"
+  VERBATIM
+)
+
 if(TARGET wpfbridge_build)
   add_dependencies(Studio wpfbridge_build)
   # WpfBridge.dll + its .NET CLR runtime files.
@@ -43,6 +52,29 @@ if(TARGET wpfbridge_build)
       VERBATIM
     )
   endforeach()
+endif()
+
+if(TARGET helpviewer_build)
+  add_dependencies(Studio helpviewer_build)
+  # Copy all HelpViewer build outputs (exe + WpfControls.dll + WebView2 DLLs)
+  # into a HelpViewer/ subdirectory next to Studio.exe.
+  # Studio.exe launches HelpViewer/HelpViewer.exe as a separate process.
+  add_custom_command(TARGET Studio POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_BINARY_DIR}/HelpViewer/bin/$<CONFIG>/
+      $<TARGET_FILE_DIR:Studio>/HelpViewer/
+    COMMENT "Copying HelpViewer"
+    VERBATIM
+  )
+  # HelpControl resolves help/ relative to WpfControls.dll, which lives inside
+  # HelpViewer/.  Copy the help source tree there.
+  add_custom_command(TARGET Studio POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_CURRENT_SOURCE_DIR}/help/
+      $<TARGET_FILE_DIR:Studio>/HelpViewer/help/
+    COMMENT "Copying help content into HelpViewer/"
+    VERBATIM
+  )
 endif()
 
 # ── about_test executable ─────────────────────────────────────────────────────
