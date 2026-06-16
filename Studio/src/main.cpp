@@ -1,19 +1,25 @@
 #include <windows.h>
 
-typedef void (__cdecl *ShowWpfAboutDialogFn)(HWND);
+typedef void (__cdecl *ShowDialogFn)(const wchar_t*, HWND);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
 	case WM_COMMAND:
+		// Defer via PostMessage so the menu fully closes and repaints before
+		// WpfBridge initialises.  Showing a WPF dialog while the menu system is
+		// still in its "closing" state causes visual corruption of the menu bar.
 		if (LOWORD(wParam) == 1) // About menu id
+			::PostMessageW(hWnd, WM_APP, 0, 0);
+		break;
+	case WM_APP:
 		{
 			HMODULE h = LoadLibraryW(L"WpfBridge.dll");
 			if (h)
 			{
-				auto fn = (ShowWpfAboutDialogFn)GetProcAddress(h, "ShowWpfAboutDialog");
-				if (fn) fn(hWnd);
+				auto fn = (ShowDialogFn)GetProcAddress(h, "ShowDialog");
+				if (fn) fn(L"About", hWnd);
 				FreeLibrary(h);
 			}
 		}

@@ -1,6 +1,6 @@
 #include <windows.h>
 
-typedef void (__cdecl *ShowWpfAboutDialogFn)(HWND);
+typedef void (__cdecl *ShowDialogFn)(const wchar_t*, HWND);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
@@ -22,8 +22,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 	HMODULE h = LoadLibraryW(L"WpfBridge.dll");
 	if (h)
 	{
-		auto fn = (ShowWpfAboutDialogFn)GetProcAddress(h, "ShowWpfAboutDialog");
-		if (fn) fn(hwnd);
+		auto fn = (ShowDialogFn)GetProcAddress(h, "ShowDialog");
+		if (fn) fn(L"About", hwnd);
 		FreeLibrary(h);
 	}
 

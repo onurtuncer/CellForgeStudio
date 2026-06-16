@@ -1,0 +1,53 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 22, "patch": 0 },
+
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "toolchainFile": "",
+      "environment": {
+        "VSCMD_START_DIR": "${sourceDir}"
+      }
+    },
+    {
+      "name": "vs2025-debug",
+      "displayName": "VS 2025 · x64 · Debug (Ninja)",
+      "description": "Ninja build using the VS 2025 (v18) MSVC toolchain. Run from a VS 2025 x64 Developer prompt or use the environment block below.",
+      "inherits": "base",
+      "architecture": { "value": "x64", "strategy": "external" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_C_COMPILER":   "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      }
+    },
+    {
+      "name": "vs2025-release",
+      "displayName": "VS 2025 · x64 · Release (Ninja)",
+      "inherits": "base",
+      "architecture": { "value": "x64", "strategy": "external" },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER":   "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    {
+      "name": "debug",
+      "displayName": "Build · Debug",
+      "configurePreset": "vs2025-debug"
+    },
+    {
+      "name": "release",
+      "displayName": "Build · Release",
+      "configurePreset": "vs2025-release"
+    }
+  ]
+}
