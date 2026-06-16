@@ -77,6 +77,17 @@ if(TARGET helpviewer_build)
   )
 endif()
 
+if(TARGET aboutviewer_build)
+  add_dependencies(Studio aboutviewer_build)
+  add_custom_command(TARGET Studio POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+      ${CMAKE_BINARY_DIR}/AboutViewer/bin/$<CONFIG>/
+      $<TARGET_FILE_DIR:Studio>/AboutViewer/
+    COMMENT "Copying AboutViewer"
+    VERBATIM
+  )
+endif()
+
 # ── about_test executable ─────────────────────────────────────────────────────
 
 add_executable(about_test WIN32 src/test_about.cpp)

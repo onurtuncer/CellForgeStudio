@@ -1,0 +1,31 @@
+<Window x:Class="AboutViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About CellForge Studio"
+        Width="400" Height="260"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="8"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="4"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" FontSize="20" FontWeight="SemiBold" Text="CellForge Studio"/>
+        <Border    Grid.Row="1" Height="1" Background="#DDD" Margin="0,8,0,0"/>
+        <TextBlock Grid.Row="2" Text="{Binding VersionText}"/>
+        <TextBlock Grid.Row="4" Foreground="#666" Text="{Binding CopyrightText}"/>
+        <TextBlock Grid.Row="6" TextWrapping="Wrap" Margin="0,8,0,8"
+                   Text="A modular instrument control and data acquisition platform."/>
+        <Button    Grid.Row="7" HorizontalAlignment="Right" Width="80"
+                   Click="Close_Click" IsDefault="True">Close</Button>
+    </Grid>
+</Window>

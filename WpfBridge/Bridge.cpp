@@ -168,7 +168,7 @@ static Collections::Generic::Dictionary<String^, String^>^ GetDialogRegistry()
 {
     auto reg = gcnew Collections::Generic::Dictionary<String^, String^>(
         StringComparer::OrdinalIgnoreCase);
-    reg->Add("About", "WpfControls.AboutControl");
+    // registry is intentionally empty — all dialogs are now out-of-process exes
     return reg;
 }
 
